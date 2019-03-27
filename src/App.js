@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Playlist from './components/playlist'
 
 class App extends Component {
-  render() {
+
+
+    componentDidMount() {
+        setTimeout(() => this.refs.playlist.addVideo({id:4, title:"La maison dans les bois"}) ,2000);
+    }
+
+    render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-           test change
-          </a>
-        </header>
+         <Playlist ref="playlist">
+         </Playlist>
       </div>
     );
   }
