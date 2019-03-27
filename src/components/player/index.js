@@ -18,10 +18,12 @@ class Player extends Component {
             }
         };
 
+        let id = this.props.video ? this.props.video.id : '';
+
         return (
             <div className="player">
                 <YouTube
-                    videoId={this.props.idVideo}
+                    videoId={id}
                     opts={opts}
                     onReady={this._onReady}
                     onEnd={(event) => this._onEnd(event)}
@@ -36,7 +38,7 @@ class Player extends Component {
     }
 
     _onEnd(event){
-        this.props.videoComplete()
+        this.props.videoComplete(this.props.video)
     }
 }
 

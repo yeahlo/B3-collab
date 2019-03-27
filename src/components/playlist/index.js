@@ -9,32 +9,61 @@ class playlist extends Component {
 
         this.state = {
             videoPlaylist: [
-                {id: 1, title: "video test"},
-                {id: 2, title: "other video"},
-                {id: 3, title: "troisieme video"},
-
             ],
             currentVideo: null,
         }
     }
 
-    getNextVideo() {
-        let copyarray = this.state.videoPlaylist.slice(0);
-        let nextVideo = copyarray.shift();
-        this.setState({videoPlaylist: copyarray});
-        console.log("copyarray", copyarray);
+    deleteVideo(video) {
+        let i = 0;
+        for(i ; i < this.state.videoPlaylist.length ; i++) {
+            if(this.state.videoPlaylist[i].id === video.id) {
+                break;
+            }
+        }
 
-        console.log("nextvideo", nextVideo);
-        return nextVideo;
+        this.setState(state => {
+            let copy = this.state.videoPlaylist.slice(0);
+            copy.splice(i,1);
+            return {
+                videoPlaylist : copy
+            }
+        })
+    }
+
+    onNext() {
+
+        this.setState(state => {
+            let copy = this.state.videoPlaylist.slice(0);
+            copy.splice(0,1);
+            return {
+                videoPlaylist : copy
+            }
+        }, () => {
+            let next = this.state.videoPlaylist[0];
+            if(next) {
+                this.props.onVideoSelected(next);
+            }
+
+        })
+
 
     }
 
-    addVideo({id, title})
+    getNextVideo() {
+        return this.state.videoPlaylist[0];
+    }
+
+    addVideo(video)
     {
         let copy = this.state.videoPlaylist.slice();
-        copy.push({id,title});
-        this.setState({videoPlaylist: copy});
-        console.log("addvideo", copy);
+        copy.push(video);
+
+        this.setState({videoPlaylist: copy}, () => {
+            if(this.state.videoPlaylist.length === 1 ) {
+                this.props.onVideoSelected(video);
+            }
+        });
 
     }
 
@@ -57,7 +86,7 @@ class playlist extends Component {
         return (
 
             <div className="playlist">
-                <button  onClick={() => this.getNextVideo()}>Passer à la vidéo suivante >></button>
+                <button  onClick={() => this.onNext()}>Passer à la vidéo suivante >></button>
                 {listVideo}
             </div>
         )

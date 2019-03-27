@@ -42,7 +42,7 @@ class Search extends Component {
 
                 <div className={"results"}>
                     {this.state.results.map((video, index) =>
-                        <div key={"row" + index} className={"row"} onClick={/*this.props.onVideoSelected(video.id.videoId)*/ console.log(video.id.videoId)}>
+                        <div key={"row" + index} className={"row"} onClick={() => this.props.onVideoSelected({id : video.id.videoId, title : video.snippet.title})}>
                             <div className={"thumbnail"}>
                                 <img key={"img" + index} src={video.snippet.thumbnails.default.url}/>
                             </div>

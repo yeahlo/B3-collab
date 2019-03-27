@@ -9,8 +9,18 @@ class History extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            videos: this.props.videos
+            videos: []
         }
+    }
+
+    addVideo(video) {
+        this.setState(state => {
+            let copy = state.videos.slice(0);
+            copy.push(video);
+            return {
+                videos : copy
+            }
+        })
     }
 
     onHistoryClicked(video) {
