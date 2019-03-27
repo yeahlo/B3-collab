@@ -1,15 +1,37 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import History from "./components/history/History";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
+    constructor() {
+        super();
+        this.state = {
+            videos: [
+                {
+                    id: "testid",
+                    title : "testtitre",
+                    description: "testDescription",
+                },
+                {
+                    id: "testid2",
+                    title : "testtitre",
+                    description: "testDescription",
+                }
+            ]
+        }
+    }
 
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <History videos={this.state.videos}/>
+            </div>
+        );
+    }
+
 }
 
+
 export default App;
+
